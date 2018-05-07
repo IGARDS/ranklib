@@ -1,0 +1,6 @@
+{
+    "instance_directory": "../../problem_instances/instances/",
+    "easy": ["small_1.json"],
+    "medium": [],
+    "hard": []
+}
