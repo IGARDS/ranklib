@@ -2,6 +2,7 @@
 import sys
 sys.path.append('/home/rankability/')
 import json
+import numpy as np
 
 from rankability_toolbox.exhaustive.rankability import *
 
@@ -11,10 +12,9 @@ instance_info = json.load(open(problem_instance_file))
 D = np.array(instance_info["D"])
 
 solution = {}
-k,p,P = exhaustive(D)
-solution["k"] = int(k)
-solution["p"] = int(p)
-solution["P"] = np.array2string(P).replace('\n', '').replace(" ",",")
+k,p,P = exhaustive_index_1(D)
+solution["k"] = k
+solution["p"] = p
+solution["P"] = P
 
-#print(solution)
 print(json.dumps(solution))
