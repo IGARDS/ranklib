@@ -3,7 +3,7 @@ if strcmp(type,'empirical') || strcmp(type,'theoretical') || strcmp(type,'partia
     data = {};
     data.D = D;
     data.k = k;
-    if size(P,1) == size(D,1)
+    if size(P,2) ~= size(D,1)
        error
     end
     data.P = P;
