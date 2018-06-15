@@ -23,7 +23,7 @@ class Comparison:
         res += "\n"
         res += "Check p: "+str(self.check_p)
         res += "\n"
-        res = "Difference p: "+str(self.diff_p)
+        res += "Difference p: "+str(self.diff_p)
         res += "\n"
         res += "Set difference P missing: "+str(self.set_diff_P_missing)
         res += "\n"
