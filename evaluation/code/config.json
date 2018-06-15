@@ -1,6 +1,6 @@
 {
     "instance_directory": "../../problem_instances/instances/",
-    "easy": ["small_1.json"],
+    "easy": ["small_1.json","random_7_3.json","random_7_2.json","full_7_1.json","random_10_1_easy.json","random_weighted_7_1.json","random_weighted_7_2.json"],
     "medium": [],
     "hard": []
 }
