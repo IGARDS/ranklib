@@ -15,6 +15,10 @@ class Comparison:
         answer_P = set([tuple(entry) for entry in answer["P"]])
         self.set_diff_P_missing = str(instance_P.difference(answer_P))
         self.set_diff_P_extra = str(answer_P.difference(instance_P))
+        if "other" in answer:
+            self.other = str(answer["other"])
+        else:
+            self.other = ""
     
     def __str__(self):
         res = "Check k: "+str(self.check_k)
@@ -28,6 +32,8 @@ class Comparison:
         res += "Set difference P missing: "+str(self.set_diff_P_missing)
         res += "\n"
         res += "Set difference P extra: "+str(self.set_diff_P_extra)
+        res += "\n"
+        res += "Other: "+self.other
         return res
     
 def load_instance(instance_dir,instance="small_1.json"):
@@ -53,16 +59,17 @@ if __name__ == "__main__":
         instance_path = config["instance_directory"]+"/"+instance
         instance_info = json.load(open(instance_path))
         cmd_array = [args.script, instance_path]
-        #print(" ".join(cmd_array))
+        print("Running: " + " ".join(cmd_array))
         result = subprocess.run(cmd_array, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        #print(result.stdout,result.stderr)
         try:
             answer = json.loads(result.stdout)
             evaluations[instance] = Comparison(instance_info,answer)
         except:
             print('ERROR on',instance)
-            #print(result.stdout)
-            #print(result.stderr)
+            print("STDOUT:")
+            print(result.stdout.decode())
+            print("STDERR:")
+            print(result.stderr.decode())
     if args.output:
         prepare_for_output = {}
         for key,value in evaluations.items():
