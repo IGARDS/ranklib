@@ -1,4 +1,9 @@
 #!/usr/bin/python3.6
+
+"""
+Right now this is hard coded to assume an unweighted graph.
+"""
+
 import numpy as np
 from dask.distributed import Client
 
@@ -26,5 +31,7 @@ if __name__ == "__main__":
     rec_search.find_P(client)
     
     f = open(args.output,'w')
-    f.write(json.dumps(rec_search.to_json()))
+    res = rec_search.to_json()
+    res["D"] = D.astype(int).tolist()
+    f.write(json.dumps(res))
     f.close()

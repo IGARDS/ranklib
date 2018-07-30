@@ -93,7 +93,7 @@ if __name__ == "__main__":
     avg_p_diff = 0
     avg_time_in_seconds = 0
     print("Summary of results:")
-    for key,value in evaluations.items():
+    for key,values in evaluations.items():
         print("\n")
         print(key)
         avg_k_diff_iter = 0
