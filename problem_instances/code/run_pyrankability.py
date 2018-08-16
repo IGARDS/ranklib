@@ -20,18 +20,19 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     
-    client = None # Client("127.0.0.1:8786")
+    client = Client("127.0.0.1:8786")
 
     #D = np.loadtxt("../ranklib/problem_instances/instances/D_NCAA.csv",delimiter=",")
     #D = np.loadtxt("../ranklib/problem_instances/instances/D_strong_dom_25.csv",delimiter=",")
     #D = np.loadtxt("../ranklib/problem_instances/instances/D_strong_dom_25_flip_20.csv",delimiter=",")
     D = np.loadtxt(args.D,delimiter=",")
     
-    rec_search = pyrankability.RecusiveKBoundedSearch(D,max_depth=10,target_search_space_at_leaf=1000,leave_out=4)
-    rec_search.find_P(client)
+    #rec_search = pyrankability.RecusiveKBoundedSearch(D,target_search_space_at_leaf=1000,leave_out=4)
+    large_solver = pyrankability.LargeProblemSolver(D,100,client=client)
+    #rec_search.find_P(client)
     
-    f = open(args.output,'w')
-    res = rec_search.to_json()
-    res["D"] = D.astype(int).tolist()
-    f.write(json.dumps(res))
-    f.close()
+    #f = open(args.output,'w')
+    #res = rec_search.to_json()
+    #res["D"] = D.astype(int).tolist()
+    #f.write(json.dumps(res))
+    #f.close()

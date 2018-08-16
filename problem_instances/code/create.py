@@ -6,6 +6,12 @@ import random
 def create_strong_dom_graph(n):
     return np.triu(np.ones((n,n)), 1)
 
+def create_fully_connected_graph(n):
+    D = np.ones((n,n))
+    for i in range(n):
+        D[i,i] = 0
+    return D
+
 def flip_k(D,k):
     c = 0
     swapped = []
@@ -32,5 +38,8 @@ if __name__ == '__main__':
         print('(n,k)=',(n,k))
         D = create_strong_dom_graph(n)
         flip_k(D,k)
-        np.savetxt("../instances/D_strong_dom_"+str(n)+"_flip_"+str(k)+".csv",D,delimiter=",")
-        print(D)
+        np.savetxt("../instances/graphs/D_strong_dom_"+str(n)+"_flip_"+str(k)+".csv",D,delimiter=",",fmt="%d")
+        
+        D = create_fully_connected_graph(n)
+        flip_k(D,k)
+        np.savetxt("../instances/graphs/D_fully_connected_"+str(n)+"_flip_"+str(k)+".csv",D,delimiter=",",fmt="%d")

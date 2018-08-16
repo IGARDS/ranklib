@@ -1,0 +1,35 @@
+../test_scripts/generic_wrapper.py:15: UserWarning: genfromtxt: Empty input file: "../../problem_instances/instances/graphs/NFL-2012-D_Matrix.txt.err"
+  D = np.genfromtxt (problem_instance_file, delimiter=",")
+Traceback (most recent call last):
+  File "../test_scripts/generic_wrapper.py", line 20, in <module>
+    print(subprocess.check_output([python_script, f.name],stderr=subprocess.STDOUT).decode())
+  File "/usr/lib/python3.6/subprocess.py", line 336, in check_output
+    **kwargs).stdout
+  File "/usr/lib/python3.6/subprocess.py", line 418, in run
+    output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['../test_scripts/large_problem_wrapper.py', '/tmp/tmpiaphapbl']' returned non-zero exit status 1.
+Error in sys.excepthook:
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/apport_python_hook.py", line 63, in apport_excepthook
+    from apport.fileutils import likely_packaged, get_recent_crashes
+  File "/usr/lib/python3/dist-packages/apport/__init__.py", line 5, in <module>
+    from apport.report import Report
+  File "/usr/lib/python3/dist-packages/apport/report.py", line 30, in <module>
+    import apport.fileutils
+  File "/usr/lib/python3/dist-packages/apport/fileutils.py", line 23, in <module>
+    from apport.packaging_impl import impl as packaging
+  File "/usr/lib/python3/dist-packages/apport/packaging_impl.py", line 23, in <module>
+    import apt
+  File "/usr/lib/python3/dist-packages/apt/__init__.py", line 23, in <module>
+    import apt_pkg
+ModuleNotFoundError: No module named 'apt_pkg'
+
+Original exception was:
+Traceback (most recent call last):
+  File "../test_scripts/generic_wrapper.py", line 20, in <module>
+    print(subprocess.check_output([python_script, f.name],stderr=subprocess.STDOUT).decode())
+  File "/usr/lib/python3.6/subprocess.py", line 336, in check_output
+    **kwargs).stdout
+  File "/usr/lib/python3.6/subprocess.py", line 418, in run
+    output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['../test_scripts/large_problem_wrapper.py', '/tmp/tmpiaphapbl']' returned non-zero exit status 1.

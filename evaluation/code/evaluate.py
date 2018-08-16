@@ -45,6 +45,7 @@ def load_instance(instance_dir,instance="small_1.json"):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument("wrapper_script", help="")
     parser.add_argument("script", help="path to a script or executable that accepts one argument and that is a CSV formatted D matrix")
     parser.add_argument("--test_level", default="easy", help="easy, medium, or hard")
     parser.add_argument("--depth", default="0.1", help="0.1:0.1:1.0")
@@ -62,7 +63,7 @@ if __name__ == "__main__":
         evaluations[instance] = []
         instance_path = config["instance_directory"]+"/"+instance
         instance_info = json.load(open(instance_path))
-        cmd_array = [args.script, instance_path]
+        cmd_array = [args.wrapper_script,args.script, instance_path]
         print("Running: " + " ".join(cmd_array))
         for i in range(args.num_timing_tests):
             print("Iteration",i)

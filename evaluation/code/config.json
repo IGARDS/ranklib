@@ -2,6 +2,6 @@
     "instance_directory": "../../problem_instances/instances/",
     "easy": ["small_1.json","random_7_3.json","random_7_2.json","full_7_1.json","random_10_1_easy.json","random_weighted_7_1.json","random_weighted_7_2.json"],
     "unweighted_easy": ["small_1.json","random_7_3.json","random_7_2.json","full_7_1.json","random_10_1_easy.json","strong_dom_10_flip_2.json"],
-    "medium": ["strong_dom_25_flip_20.json"],
+    "unweighted_medium": ["strong_dom_25_flip_20.json"],
     "hard": []
 }
