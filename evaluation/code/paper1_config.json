@@ -1,0 +1,5 @@
+{
+    "instance_directory": "../../problem_instances/instances/graphs/2018-08-24_14-51-35/",
+    "unweighted_quick": [ "D_strong_dom_10_flip_0.csv.pruning_paper_wrapper_orig.py.json"],
+    "unweighted_easy": [ "D_strong_dom_10_flip_0.csv.pruning_paper_wrapper_orig.py.json", "D_strong_dom_15_flip_5.csv.pruning_paper_wrapper_orig.py.json", "D_strong_dom_10_flip_2.csv.pruning_paper_wrapper_orig.py.json", "D_strong_dom_25_flip_0.csv.pruning_paper_wrapper_orig.py.json", "D_strong_dom_10_flip_5.csv.pruning_paper_wrapper_orig.py.json", "D_strong_dom_25_flip_10.csv.pruning_paper_wrapper_orig.py.json", "D_strong_dom_15_flip_0.csv.pruning_paper_wrapper_orig.py.json", "D_strong_dom_25_flip_20.csv.pruning_paper_wrapper_orig.py.json", "D_strong_dom_15_flip_10.csv.pruning_paper_wrapper_orig.py.json", "D_strong_dom_25_flip_5.csv.pruning_paper_wrapper_orig.py.json" ]
+}

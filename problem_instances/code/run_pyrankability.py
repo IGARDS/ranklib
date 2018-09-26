@@ -28,7 +28,7 @@ if __name__ == "__main__":
     D = np.loadtxt(args.D,delimiter=",")
     
     #rec_search = pyrankability.RecusiveKBoundedSearch(D,target_search_space_at_leaf=1000,leave_out=4)
-    large_solver = pyrankability.LargeProblemSolver(D,100,client=client)
+    #large_solver = pyrankability.LargeProblemSolver(D,100,client=client)
     #rec_search.find_P(client)
     
     #f = open(args.output,'w')

@@ -7,35 +7,38 @@ import subprocess
 import time
 
 class Comparison:
-    def __init__(self,instance_info,answer,time_in_seconds):
+    def __init__(self,instance_info,answer,time_in_seconds,just_k = False):
         self.check_k = answer["k"] == instance_info["k"]
         self.diff_k = abs(answer["k"] - instance_info["k"])
-        self.check_p = answer["p"] == len(instance_info["P"])
-        self.diff_p = abs(answer["p"] - len(instance_info["P"]))
-        instance_P = set([tuple(entry) for entry in instance_info["P"]])
-        answer_P = set([tuple(entry) for entry in answer["P"]])
-        self.set_diff_P_missing = str(instance_P.difference(answer_P))
-        self.set_diff_P_extra = str(answer_P.difference(instance_P))
+        self.just_k = just_k
         self.time_in_seconds = time_in_seconds
-        if "other" in answer:
-            self.other = str(answer["other"])
-        else:
-            self.other = ""
+        if not just_k:
+            self.check_p = answer["p"] == len(instance_info["P"])
+            self.diff_p = abs(answer["p"] - len(instance_info["P"]))
+            instance_P = set([tuple(entry) for entry in instance_info["P"]])
+            answer_P = set([tuple(entry) for entry in answer["P"]])
+            self.set_diff_P_missing = str(instance_P.difference(answer_P))
+            self.set_diff_P_extra = str(answer_P.difference(instance_P))
+            if "other" in answer:
+                self.other = str(answer["other"])
+            else:
+                self.other = ""
     
     def __str__(self):
         res = "Check k: "+str(self.check_k)
         res += "\n"
         res = "Difference k: "+str(self.diff_k)
-        res += "\n"
-        res += "Check p: "+str(self.check_p)
-        res += "\n"
-        res += "Difference p: "+str(self.diff_p)
-        res += "\n"
-        res += "Set difference P missing: "+str(self.set_diff_P_missing)
-        res += "\n"
-        res += "Set difference P extra: "+str(self.set_diff_P_extra)
-        res += "\n"
-        res += "Other: "+self.other
+        if not self.just_k:
+            res += "\n"
+            res += "Check p: "+str(self.check_p)
+            res += "\n"
+            res += "Difference p: "+str(self.diff_p)
+            res += "\n"
+            res += "Set difference P missing: "+str(self.set_diff_P_missing)
+            res += "\n"
+            res += "Set difference P extra: "+str(self.set_diff_P_extra)
+            res += "\n"
+            res += "Other: "+self.other
         return res
     
 def load_instance(instance_dir,instance="small_1.json"):
@@ -53,6 +56,8 @@ if __name__ == "__main__":
     parser.add_argument("--config", default="config.json", help="program configuration file")
     parser.add_argument("--output",default=None, help="output the results to this JSON file")
     parser.add_argument("--num_timing_tests",default=1, type=int, help="the number of timing tests to run and report")
+    parser.add_argument("--timeout",default=360, type=int, help="seconds to allow a test to run")
+    parser.add_argument("--just_k", action='store_true', help="flag to do a comparison of just k") 
 
     args = parser.parse_args()
 
@@ -68,14 +73,23 @@ if __name__ == "__main__":
         for i in range(args.num_timing_tests):
             print("Iteration",i)
             start_time = time.time()
-            result = subprocess.run(cmd_array, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            result = subprocess.run(cmd_array, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=args.timeout)
             end_time = time.time()
+            if result.returncode != 0:
+                print('ERROR on',instance)
+                print("STDOUT:")
+                print(result.stdout.decode())
+                print("STDERR:")
+                print(result.stderr.decode())
+                raise Exception("Fatal Error")
+                
             time_in_seconds = end_time - start_time
+            #if not args.speed_test:
             try:
                 answer = json.loads(result.stdout)
-                evaluations[instance].append(Comparison(instance_info,answer,time_in_seconds))
+                evaluations[instance].append(Comparison(instance_info,answer,time_in_seconds,just_k=args.just_k))
             except:
-                print('ERROR on',instance)
+                print('ERROR processing output on',instance)
                 print("STDOUT:")
                 print(result.stdout.decode())
                 print("STDERR:")
@@ -91,33 +105,41 @@ if __name__ == "__main__":
 
     # Now output pretty results
     avg_k_diff = 0
-    avg_p_diff = 0
+    if not args.just_k:
+        avg_p_diff = 0
     avg_time_in_seconds = 0
     print("Summary of results:")
     for key,values in evaluations.items():
         print("\n")
         print(key)
         avg_k_diff_iter = 0
-        avg_p_diff_iter = 0
+        if not args.just_k:
+            avg_p_diff_iter = 0
         avg_time_in_seconds_iter = 0
         for value in values:
             print("\t"+"\n\t".join(str(value).split("\n")))
             avg_k_diff_iter += value.diff_k
-            avg_p_diff_iter += value.diff_p
+            if not args.just_k:
+                avg_p_diff_iter += value.diff_p
             avg_time_in_seconds_iter += value.time_in_seconds
         avg_k_diff_iter = avg_k_diff_iter*1./len(values)
-        avg_p_diff_iter = avg_p_diff_iter*1./len(values)
+        if not args.just_k:
+            avg_p_diff_iter = avg_p_diff_iter*1./len(values)
         avg_time_in_seconds_iter = avg_time_in_seconds_iter*1./len(values)
         avg_k_diff += avg_k_diff_iter
-        avg_p_diff += avg_p_diff_iter
+        if not args.just_k:
+            avg_p_diff += avg_p_diff_iter
         avg_time_in_seconds += avg_time_in_seconds_iter
         print("Iteration average difference in k:",avg_k_diff_iter)
-        print("Iteration average difference in p:",avg_p_diff_iter)
+        if not args.just_k:
+            print("Iteration average difference in p:",avg_p_diff_iter)
         print("Iteration average time in seconds:",avg_time_in_seconds_iter)
     
     avg_k_diff = avg_k_diff*1./len(evaluations)
-    avg_p_diff = avg_p_diff*1./len(evaluations)
+    if not args.just_k:
+        avg_p_diff = avg_p_diff*1./len(evaluations)
     avg_time_in_seconds = avg_time_in_seconds*1./len(evaluations)
     print("Overall average difference in k:",avg_k_diff)
-    print("Overall average difference in p:",avg_p_diff)
+    if not args.just_k:
+        print("Overall average difference in p:",avg_p_diff)
     print("Overall average time in seconds:",avg_time_in_seconds)
