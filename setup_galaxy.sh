@@ -8,7 +8,7 @@ docker run -d -v `pwd`/deps:/deps bgruening/galaxy-stable
 # Get the container ID of the last run docker (above)
 export CONTAINER_ID=`docker ps -lq`
 
-docker exec -it $CONTAINER_ID ls /deps
+docker exec -it $CONTAINER_ID /deps/image_setup.sh
 
 # Commit the container state (returns an image_id with sha256: prefix cut off)
 # and write the IMAGE_ID to disk at ~/.docker_image_id

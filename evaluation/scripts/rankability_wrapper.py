@@ -1,6 +1,5 @@
 #!/usr/bin/python3.6
 import sys
-sys.path.append('/home/rankability/')
 import json
 import numpy as np
 
