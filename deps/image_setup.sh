@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cp /deps/tool_conf.xml /galaxy-central/config/
+cp /ranklib/deps/tool_conf.xml /galaxy-central/config/
 
 apt-get update
 apt-get install -y software-properties-common
@@ -10,3 +10,5 @@ apt-get install -y python3.6
 curl https://bootstrap.pypa.io/get-pip.py | sudo -H python3.6
 apt-get install -y python3.6-dev
 pip3.6 install pyrankability
+
+ln -s /ranklib /export/galaxy-central/tools/

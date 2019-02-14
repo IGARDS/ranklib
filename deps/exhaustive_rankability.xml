@@ -1,0 +1,22 @@
+<tool id="exhaustive_rankability_1" name="Exhaustive Rankability" version="0.0.1">
+  <description>Rankability exhaustive method exact solver</description>
+  <command interpreter="python3.6">../evaluation/scripts/exhaustive_wrapper.py $input</command>
+  <inputs>
+    <param format="csv" name="input" type="data" label="Adjacency Matrix"/>
+  </inputs>
+  <outputs>
+    <data format="json" name="output" />
+  </outputs>
+
+  <tests>
+    <test>
+      <param name="input" value="../problem_instances/instances/graphs/small_1.csv"/>
+      <output name="out_file1" file="small_1_output.json"/>
+    </test>
+  </tests>
+
+  <help>
+This tool computes the rankability of a graph using an exhaustive method.
+  </help>
+
+</tool>
