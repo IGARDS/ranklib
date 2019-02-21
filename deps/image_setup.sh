@@ -2,6 +2,8 @@
 
 cp /ranklib/deps/tool_conf.xml /galaxy-central/config/
 
+cp /ranklib/deps/galaxy.yml /etc/galaxy/galaxy.yml
+
 apt-get update
 apt-get install -y software-properties-common
 add-apt-repository -y ppa:jonathonf/python-3.6

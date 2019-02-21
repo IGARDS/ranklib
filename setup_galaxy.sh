@@ -3,7 +3,7 @@
 # Run a docker with the env boot script
 #-e "PROXY_PREFIX=/galaxy" \
 #    -v /mnt/disk1/export/:/export/
-docker run -d -p 8080:80 -p 8021:21 -p 8022:22 -v `pwd`/../ranklib/:/ranklib bgruening/galaxy-stable 
+docker run -d -p 8080:80 -p 8021:21 -p 8022:22 -v /export:/export -v `pwd`/../ranklib/:/ranklib bgruening/galaxy-stable 
 
 # Get the container ID of the last run docker (above)
 export CONTAINER_ID=`docker ps -lq`
