@@ -11,7 +11,18 @@ output_json_file = sys.argv[3]
 output_k_file = sys.argv[4]
 output_P_file = sys.argv[5]
 
-output_json = json.loads(subprocess.check_output([rankability_script,problem_instance_file]))
+try:
+    output = subprocess.check_output([rankability_script,problem_instance_file])
+    lines = []
+    for line in output.decode("utf-8").split("\n"):
+        if "Academic license" in line:
+            continue
+        lines.append(line)
+    output = "\n".join(lines)
+    output_json = json.loads(output)
+except:
+    print(output)
+    exit(1)
 
 open(output_json_file,"w").write(str(output_json))
 
