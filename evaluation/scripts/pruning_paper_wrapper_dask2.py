@@ -22,11 +22,10 @@ import pyrankability
 client = Client("127.0.0.1:8786")
 
 k,P = pyrankability.pruning_paper_dask2.find_P("/dev/shm/D.csv",4,100,
-                                                      bilp_method="orig",prune_history=True,client=client)
+                                                      bilp_method="orig",prune_history=False,client=client)
 skipped = 0
 
 p = len(P)
-print("p=",p)
 max_size = 10000
 if p > max_size:
 	P = random.sample(P,max_size)

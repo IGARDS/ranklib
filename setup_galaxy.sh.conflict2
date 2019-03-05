@@ -3,7 +3,11 @@
 # Run a docker with the env boot script
 #-e "PROXY_PREFIX=/galaxy" \
 #    -v /mnt/disk1/export/:/export/
+<<<<<<< HEAD:setup_galaxy.sh.conflict
 docker run -d -e "NONUSE=slurmctld" -p 8080:80 -p 8021:21 -p 8022:22 -v /export:/export -v `pwd`/../ranklib/:/ranklib bgruening/galaxy-stable 
+=======
+docker run -d --network host -p 8080:80 -p 8021:21 -p 8022:22 -v /export:/export -v `pwd`/../ranklib/:/ranklib bgruening/galaxy-stable 
+>>>>>>> 44838973eb3be13f6add9bdbf33ec2d09286b7b5:setup_galaxy.sh
 
 # Get the container ID of the last run docker (above)
 export CONTAINER_ID=`docker ps -lq`
