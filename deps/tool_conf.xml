@@ -7,4 +7,7 @@
     <tool file="ranklib/deps/exhaustive_rankability.xml" />
     <tool file="ranklib/deps/pruning_rankability.xml" />
   </section>
+  <section id="improve_rankability" name="Improve Rankability">
+    <tool file="ranklib/deps/improve_greedy.xml" />
+  </section>
 </toolbox>
