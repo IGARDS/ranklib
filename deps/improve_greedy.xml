@@ -1,0 +1,24 @@
+<tool id="improve_greedy_1" name="Improve Rankability" version="0.0.1">
+  <description>Improve Greedy Algorithm</description>
+  <command interpreter="bash">run_python3.6.sh /ranklib/evaluation/scripts/improve_greedy_galaxy_outputs.py /ranklib/evaluation/scripts/improve_greedy_wrapper.py $input $output1 $output2 $output3 </command>
+  <inputs>
+    <param format="csv" name="input" type="data" label="Adjacency Matrix"/>
+  </inputs>
+  <outputs>
+    <data format="json" name="output1" label="${tool.name} on ${on_string} JSON" />
+    <data format="csv" name="output2" label="${tool.name} on ${on_string} k"/>
+    <data format="txt" name="output3"  label="${tool.name} on ${on_string} P"/>
+  </outputs>
+
+  <tests>
+    <test>
+      <param name="input" value="../problem_instances/instances/graphs/small_1.csv"/>
+      <output name="out_file1" file="small_1_output.json"/>
+    </test>
+  </tests>
+
+  <help>
+This tool implements the greedy version of improving rankability.
+  </help>
+
+</tool>
