@@ -13,4 +13,4 @@ import pyrankability
 
 Dtilde,output= pyrankability.improve.greedy(D,1)
 
-print(json.dumps("Dtilde": Dtilde, "output": output))
+print(json.dumps({"Dtilde": Dtilde.tolist(), "output": output}))

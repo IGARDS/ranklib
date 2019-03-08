@@ -20,7 +20,7 @@
         <destination id="slurm_cluster" runner="cli">
             <param id="shell_plugin">SecureShell</param>
             <param id="job_plugin">Slurm</param>
-            <param id="shell_username">root</param>
+            <param id="shell_username">galaxy</param>
             <param id="shell_hostname">up-andersonp-01</param>
             <param id="job_time">2:00:00</param>
             <param id="job_ncpus">2</param>
