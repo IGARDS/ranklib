@@ -8,8 +8,8 @@ import subprocess
 rankability_script = sys.argv[1]
 problem_instance_file = sys.argv[2]
 output_json_file = sys.argv[3]
-output_k_file = sys.argv[4]
-output_P_file = sys.argv[5]
+output_Dtilde = sys.argv[4]
+output_output = sys.argv[5]
 
 try:
     output = subprocess.check_output([rankability_script,problem_instance_file])
@@ -21,16 +21,15 @@ try:
     output = "\n".join(lines)
     output_json = json.loads(output)
 except:
-    print(output)
     exit(1)
 
 open(output_json_file,"w").write(str(output_json))
 
-open(output_k_file,"w").write(str(output_json["k"]))
+open(output_Dtilde,"w").write(str(output_json["Dtilde"]))
+
+open(output_output,"w").write(str(output_json["output"]))
 
 #open("P.csv","w").write(str(output_json["P"]))
-np.savetxt(output_P_file,output_json["P"],delimiter=",",fmt='%d')
+#np.savetxt(output_output,output_json["output"],delimiter=",",fmt='%d')
 
-print("k:",output_json["k"])
-print("p:",output_json["p"])
-print("P:",output_json["P"])
+print(output_json["output"])
